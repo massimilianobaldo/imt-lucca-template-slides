@@ -84,6 +84,34 @@ secondary emphasis, and the `takeawaybox` environment for a boxed conclusion.
 
 ## Features
 
+### Recap grid
+
+`recap` lays out labelled panels two per row for a one-slide summary of the
+talk. Each `\recapitem` takes a label and its text:
+
+```latex
+\begin{frame}{In summary}
+  \vfill
+  \begin{recap}
+    \recapitem{Problem}{State the gap your work addresses.}
+    \recapitem{Methodology}{Name the approach, not its details.}
+    \recapitem{Results}{Give the single number that matters.}
+    \recapitem{Conclusions and future work}{Say what comes next.}
+  \end{recap}
+  \vfill
+\end{frame}
+```
+
+All panels get the same width and height, so the grid stays aligned however
+unevenly the text falls. The panel count is not fixed at four: three give a full
+row plus one panel, six give three rows. Panels are sized to their content
+rather than to the slide, so `\vfill` on both sides centers the grid in the
+frame body.
+
+Keep each panel to one sentence. Four panels leave roughly two lines each, and a
+bullet list inside a panel (which does work) shrinks into something nobody reads
+from the back of the room.
+
 ### Results formalized in Lean
 
 `leanbox` marks a theorem, lemma, or proposition that has been proved and

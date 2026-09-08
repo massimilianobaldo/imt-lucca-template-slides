@@ -18,6 +18,9 @@
 %                                 the top left and the second stays on the right.
 %   \IMTLogo, \IMTLogoVertical    Paths to the bundled IMT logos
 %   \highlight{...}, \bluehighlight{...}, takeawaybox environment
+%   \begin{recap} \recapitem{<label>}{<text>} ... \end{recap}
+%                                     One-slide summary: labelled panels laid
+%                                     out two per row, all the same size.
 %   \begin{leanbox}{<kind>}{<name>}   Result formalized in Lean; the Lean logo
 %                                     is shown at the right of the title bar.
 %                                     Leave <name> empty to omit the parentheses.
@@ -60,7 +63,7 @@
 \RequirePackage{tikz}
 \RequirePackage{etoolbox}
 \RequirePackage{tcolorbox}
-\tcbuselibrary{skins}
+\tcbuselibrary{skins,raster}
 
 % -----------------------------------------------------------------------------
 % Logo assets. File names are resolved against assetpath, so a bare file name
@@ -312,6 +315,57 @@
       at ([xshift=-2.5mm]title.east)
       {\includegraphics[width=15mm]{\imt@assetpath\imt@leanlogo}};%
   },
+}
+
+% -----------------------------------------------------------------------------
+% Recap grid: labelled panels, two per row, for a one-slide summary
+%
+%   \begin{recap}
+%     \recapitem{Problem}{One sentence.}
+%     \recapitem{Methodology}{One sentence.}
+%     \recapitem{Results}{One sentence.}
+%     \recapitem{Conclusions}{One sentence.}
+%   \end{recap}
+%
+% All panels are given the same height and width, so the grid stays aligned
+% however unevenly the text falls. Any number of panels works: three give one
+% full row plus one panel, six give three rows. Bodies are set ragged right
+% because justified text stretches badly in a column this narrow.
+%
+% Panels are sized to their content, not to the slide. Put \vfill before and
+% after the environment to centre the grid in the frame body.
+% -----------------------------------------------------------------------------
+\tcbset{
+  imt@recappanel/.style={
+    enhanced,
+    colback=IMTBackground,
+    colframe=IMTDarkBlue,
+    colbacktitle=IMTDarkBlue,
+    coltitle=white,
+    fonttitle=\bfseries\small,
+    boxrule=0.6pt,
+    arc=1.5pt,
+    halign=flush left,
+    left=2mm,right=2mm,top=1.5mm,bottom=1.5mm,
+    lefttitle=2mm,righttitle=2mm,toptitle=0.8mm,bottomtitle=0.8mm,
+  },
+}
+
+\newenvironment{recap}{%
+  \begin{tcbraster}[
+    raster columns=2,
+    raster equal height,
+    raster column skip=2.5mm,
+    raster row skip=2.5mm,
+    raster left skip=0mm,
+    raster right skip=0mm,
+  ]%
+}{%
+  \end{tcbraster}%
+}
+
+\newcommand{\recapitem}[2]{%
+  \begin{tcolorbox}[imt@recappanel,title={#1}]#2\end{tcolorbox}%
 }
 
 \endinput
