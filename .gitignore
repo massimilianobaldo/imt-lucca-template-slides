@@ -1,0 +1,41 @@
+# Out-of-tree build output
+build/
+
+# Generated PDFs in the repository root only; assets/*.pdf are source files
+/*.pdf
+
+# LaTeX / Beamer aux files, in case a build runs in-tree (e.g. TeXstudio's
+# own build button, which ignores BUILDDIR unless configured to use it)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# latexindent backups
+*.bak[0-9]*
+
+# Temporary / backup files
+*.bak
+*.tmp
+*~
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
