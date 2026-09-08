@@ -1,0 +1,109 @@
+% !TeX program = pdflatex
+% IMT School for Advanced Studies Lucca beamer template.
+% Build with `make` (see the Makefile) or with pdfLaTeX in TeXstudio.
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% Theme options: sectionpages=true|false, footer=true|false, assetpath=<dir>.
+\usetheme{imtlucca}
+
+% -----------------------------------------------------------------------------
+% Content packages
+% -----------------------------------------------------------------------------
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{appendixnumberbeamer}
+\usepackage{microtype}
+
+% Figures path.
+\graphicspath{{assets/}{figures/}}
+
+% -----------------------------------------------------------------------------
+% Optional co-institution logo, shown on the title slide next to the IMT logo.
+% Point it at your own file, or delete the line for an IMT-only title slide.
+% -----------------------------------------------------------------------------
+\imtcologo[13mm]{udine_seal_wikipedia.png}
+
+% -----------------------------------------------------------------------------
+% Metadata: replace these placeholders.
+% The optional arguments are used in the footer: \author[Speaker]{...},
+% \title[Short title]{Full title}.
+% -----------------------------------------------------------------------------
+\title[Short title]{Presentation Title}
+\subtitle{Optional subtitle}
+\author[Speaker]{\underline{Speaker Name} \and Second Author \and Third Author}
+\institute[IMT Lucca]{Scuola IMT Alti Studi Lucca}
+\date{Venue \\ \today}
+
+% -----------------------------------------------------------------------------
+% Document starts here.
+% The following frames are generic placeholders only.
+% Replace them with your own content.
+% -----------------------------------------------------------------------------
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \titlepage%
+\end{frame}
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+\section{Template test}
+
+\begin{frame}{Clean text slide}
+  \begin{itemize}
+    \item Replace this placeholder with your own first point.
+    \item Use \highlight{orange} for emphasis and \bluehighlight{blue} for secondary emphasis.
+    \item Keep slides sparse: one idea per slide works best for a 30-minute talk.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Two-column layout}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Left block}
+        Placeholder text for definitions, assumptions, or setup.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{exampleblock}{Right block}
+        Placeholder text for examples, results, or implications.
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Equation and key message}
+  \begin{equation*}
+    \text{score}(x) = \alpha \cdot \text{signal}(x) - \beta \cdot \text{cost}(x)
+  \end{equation*}
+
+  \vspace{3mm}
+  \begin{takeawaybox}
+    Replace this sentence with the main conclusion of the slide.
+  \end{takeawaybox}
+\end{frame}
+
+\begin{frame}{Figure placeholder}
+  \begin{center}
+    \fbox{\parbox[c][42mm][c]{0.72\textwidth}{\centering Insert figure here}}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Thank you}
+  \Large Questions?
+
+  \vspace{6mm}
+  \normalsize
+  \textcolor{IMTMutedText}{Name Surname \quad | \quad email@example.org}
+\end{frame}
+
+\appendix
+\section*{Backup slides}
+
+\begin{frame}{Backup slide placeholder}
+  This area is for optional details, proofs, extra experiments, or robustness checks.
+\end{frame}
+
+\end{document}
