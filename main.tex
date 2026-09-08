@@ -21,7 +21,9 @@
 % Optional co-institution logo, shown on the title slide next to the IMT logo.
 % Point it at your own file, or delete the line for an IMT-only title slide.
 % -----------------------------------------------------------------------------
-\imtcologo[13mm]{udine_seal_wikipedia.png}
+% The two marks balance when both are the horizontal lockup at a matched height.
+\imtlogo[11mm]{imt_lucca_horizontal.pdf}
+\imtcologo[11mm]{logo-uniud.jpg}
 
 % -----------------------------------------------------------------------------
 % Metadata: replace these placeholders.
@@ -31,7 +33,7 @@
 \title[Short title]{Presentation Title}
 \subtitle{Optional subtitle}
 \author[Speaker]{\underline{Speaker Name} \and Second Author \and Third Author}
-\institute[IMT Lucca]{Scuola IMT Alti Studi Lucca}
+\institute[IMT Lucca]{IMT School for Advanced Studies Lucca}
 \date{Venue \\ \today}
 
 % -----------------------------------------------------------------------------
@@ -83,6 +85,20 @@
   \begin{takeawaybox}
     Replace this sentence with the main conclusion of the slide.
   \end{takeawaybox}
+\end{frame}
+
+\begin{frame}{Results formalized in Lean}
+  Use \texttt{leanbox} for statements that are proved and implemented in the
+  Lean proof assistant. The first argument is the kind of result, the second is
+  its name; leave the name empty to drop the parentheses.
+
+  \begin{leanbox}{Theorem}{Soundness}
+    If $\Gamma \vdash e : \tau$ then $e$ evaluates to a value of type $\tau$.
+  \end{leanbox}
+
+  \begin{leanbox}{Lemma}{}
+    Every well-typed term is either a value or takes a step.
+  \end{leanbox}
 \end{frame}
 
 \begin{frame}{Figure placeholder}

@@ -44,13 +44,20 @@ tree, so that bare file names are resolved by kpathsea instead.
 
 ## Logos
 
-The title slide shows the IMT logo, plus an optional second logo to its right:
+The title slide shows the IMT logo, plus an optional second logo for a
+co-institution:
 
 ```latex
-\imtcologo[13mm]{your_institution.png}   % add a co-institution logo
-\imtlogo[12mm]{imt_lucca_horizontal.pdf} % change the primary logo
-\imtlogo{}                               % no logos at all
+\imtcologo[11mm]{your_institution.png}   % add a co-institution logo
+\imtlogo[11mm]{imt_lucca_horizontal.pdf} % change the primary logo
+\imtlogo{}                               % no primary logo
 ```
+
+Placement follows from how many logos there are. A single logo sits at the top
+right. With a co-institution logo the two marks take a corner each, the IMT one
+top left and the second top right, inset by the same margin. Two logos read as a
+balanced pair when both are horizontal lockups at a matched height, which is
+what `main.tex` does.
 
 File names are resolved against `assetpath`. The optional argument is the
 rendered height. Regular slides carry no logos; the footer shows the speaker on
@@ -75,8 +82,94 @@ Colors: `IMTDarkBlue`, `IMTOrange`, `IMTAccentBlue`, `IMTBackground`,
 Helpers: `\highlight{...}` for orange emphasis, `\bluehighlight{...}` for
 secondary emphasis, and the `takeawaybox` environment for a boxed conclusion.
 
+## Features
+
+### Results formalized in Lean
+
+`leanbox` marks a theorem, lemma, or proposition that has been proved and
+implemented in the [Lean](https://lean-lang.org/) proof assistant. The Lean logo
+appears at the right end of the title bar. The first argument is the kind of
+result, the second its name; leave the name empty to drop the parentheses.
+
+```latex
+\begin{leanbox}{Theorem}{Soundness}
+  If $\Gamma \vdash e : \tau$ then $e$ evaluates to a value of type $\tau$.
+\end{leanbox}
+
+\begin{leanbox}{Lemma}{}
+  Every well-typed term is either a value or takes a step.
+\end{leanbox}
+```
+
+The box is built with `tcolorbox`, which the theme loads without package
+options. Add libraries with `\tcbuselibrary{...}`; a second
+`\usepackage[...]{tcolorbox}` would raise an option clash.
+
+The logo in `assets/lean_logo.png` is the official artwork, used unmodified. It
+is thin black line art, so the theme places it on a white field inside the dark
+title bar rather than recoloring it, and the ™ symbol is left in place. See
+[Logos and trademarks](#logos-and-trademarks) before publishing or presenting.
+
 ## Fonts
 
 The theme uses Inter through the CTAN `inter` package, which works with
 pdfLaTeX. If `inter` is not installed it falls back to Latin Modern Sans, so the
 template always compiles.
+
+## Logos and trademarks
+
+**None of the logo files in `assets/` are covered by this repository's license.**
+They belong to their respective owners and are bundled only so that the template
+renders as intended. Each carries its own conditions, summarized below as of
+8 September 2026. This summary is not legal advice: check the linked sources
+before you present with these slides or redistribute a fork.
+
+### IMT School for Advanced Studies Lucca
+
+`imt_lucca_horizontal.pdf`, `imt_lucca_vertical.pdf`
+
+"The use of the name and logo of the IMT School by third parties is only
+permitted with its prior authorisation." Authorization is requested from the
+Communication Office at `commev@imtlucca.it`, a graphic draft must be submitted
+to the same office for approval, and use must follow the Visual Identity Manual.
+Source: [Visual identity, logo and patronage](https://www.imtlucca.it/en/visual-identity-logo-and-patronage).
+
+### University of Udine
+
+`logo-uniud.jpg`
+
+The logo may be used by internal university structures and by external parties
+that have been granted patronage (`concessione del patrocinio`). Use must follow
+the university's Manuale d'immagine, and requests go to `urp@uniud.it`. Source:
+[Uso del logo di Ateneo](https://www.uniud.it/it/servizi/servizi-comunicazione/urp/uso-logo).
+
+`logo-uniud.jpg` is the official lockup, seal plus wordmark plus payoff,
+obtained from the university's own website. An earlier version of this template
+used a seal taken from the English Wikipedia file `Uniudlogo.png`, which is
+hosted there as a **non-free logo under a fair-use rationale**: its description
+page states that "any other uses of this image, on Wikipedia or elsewhere, may
+be copyright infringement." Do not reintroduce that file. Source:
+[File:Uniudlogo.png](https://en.wikipedia.org/wiki/File:Uniudlogo.png).
+
+### Lean
+
+`lean_logo.png`
+
+The Lean logo is a registered trademark of the Lean Focused Research
+Organization in the United States and Europe. The bundled file is the official
+artwork from [lean-lang.org/logos](https://lean-lang.org/logos/), used
+unmodified. The
+[trademark policy](https://lean-lang.org/trademark-policy/) permits accurate
+statements without prior approval, such as saying that a result is proved in the
+Lean programming language, which is what `leanbox` asserts. It requires that the
+™ symbol is never removed or obscured, and it requires explicit permission for
+derived logos, for use of the mark inside another trademark, and for merchandise
+offered for sale. Redistributing the artwork inside a template repository is not
+addressed either way by the policy.
+
+### If you fork this template
+
+Replace the institutional logos with your own, or obtain authorization from each
+holder first. `\imtlogo{}` drops the primary logo and deleting the `\imtcologo`
+line drops the second one, so the title slide works with no institutional
+artwork at all.

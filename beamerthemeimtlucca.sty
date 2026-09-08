@@ -13,10 +13,20 @@
 % User macros
 %   \imtlogo[<height>]{<file>}    Primary title-slide logo (default: IMT, 12mm)
 %   \imtcologo[<height>]{<file>}  Optional co-institution logo, empty by default
+%                                 A single logo sits at the top right; with a
+%                                 co-institution logo the primary one moves to
+%                                 the top left and the second stays on the right.
 %   \IMTLogo, \IMTLogoVertical    Paths to the bundled IMT logos
 %   \highlight{...}, \bluehighlight{...}, takeawaybox environment
+%   \begin{leanbox}{<kind>}{<name>}   Result formalized in Lean; the Lean logo
+%                                     is shown at the right of the title bar.
+%                                     Leave <name> empty to omit the parentheses.
 %
 % Pass an empty file name to drop a logo, e.g. \imtlogo{} for no logos at all.
+%
+% The theme loads tcolorbox without package options; add tcolorbox libraries
+% with \tcbuselibrary{...} rather than \usepackage[...]{tcolorbox}, which would
+% raise an option clash.
 % -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemeimtlucca}[2026/09/08 v1.0 IMT Lucca beamer theme]
@@ -48,6 +58,9 @@
 % -----------------------------------------------------------------------------
 \RequirePackage{graphicx}
 \RequirePackage{tikz}
+\RequirePackage{etoolbox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
 
 % -----------------------------------------------------------------------------
 % Logo assets. File names are resolved against assetpath, so a bare file name
@@ -133,16 +146,29 @@
     \fill[IMTDarkBlue] (current page.north west) rectangle ([yshift=-0.9mm]current page.north east);
     \fill[IMTOrange] ([yshift=-0.9mm]current page.north west) rectangle ([xshift=42mm,yshift=-2.4mm]current page.north west);
 
-    % Logos on the right, grouped as a compact block.
-    \node[anchor=north east,inner sep=0pt] at ([xshift=-8mm,yshift=-7.5mm]current page.north east) {%
+    % A single logo sits at the top right. With a co-institution logo the two
+    % marks take a corner each: the primary one on the left, the second on the
+    % right, both inset by the same 8mm.
+    \ifx\imt@cologofile\@empty
       \ifx\imt@logofile\@empty\else
-        \includegraphics[height=\imt@logoheight]{\imt@assetpath\imt@logofile}%
+        \node[anchor=north east,inner sep=0pt]
+          at ([xshift=-8mm,yshift=-7.5mm]current page.north east)
+          {\includegraphics[height=\imt@logoheight]{\imt@assetpath\imt@logofile}};
       \fi
-      \ifx\imt@cologofile\@empty\else
-        \ifx\imt@logofile\@empty\else\hspace{3.5mm}\fi
-        \includegraphics[height=\imt@cologoheight]{\imt@assetpath\imt@cologofile}%
+    \else
+      \ifx\imt@logofile\@empty
+        \node[anchor=north east,inner sep=0pt]
+          at ([xshift=-8mm,yshift=-7.5mm]current page.north east)
+          {\includegraphics[height=\imt@cologoheight]{\imt@assetpath\imt@cologofile}};
+      \else
+        \node[anchor=north west,inner sep=0pt]
+          at ([xshift=8mm,yshift=-7.5mm]current page.north west)
+          {\includegraphics[height=\imt@logoheight]{\imt@assetpath\imt@logofile}};
+        \node[anchor=north east,inner sep=0pt]
+          at ([xshift=-8mm,yshift=-7.5mm]current page.north east)
+          {\includegraphics[height=\imt@cologoheight]{\imt@assetpath\imt@cologofile}};
       \fi
-    };
+    \fi
 
     % Main title block centered relative to the whole slide, not shifted by logos.
     \node[anchor=center,inner sep=0pt,text width=.90\paperwidth,align=center]
@@ -249,5 +275,43 @@
   \begin{beamercolorbox}[wd=\textwidth,rounded=true,sep=1.2ex]{block body}
   \textbf{Takeaway.}\;}{%
   \end{beamercolorbox}}
+
+% -----------------------------------------------------------------------------
+% Results formalized in the Lean proof assistant
+%
+%   \begin{leanbox}{Theorem}{Soundness} ... \end{leanbox}
+%   \begin{leanbox}{Lemma}{} ... \end{leanbox}
+%
+% The Lean logo is a registered trademark of the Lean Focused Research
+% Organization. The bundled file is the official artwork, used unmodified: it is
+% thin black line art, so it sits on a white field inside the dark title bar
+% rather than being recolored, and the trademark symbol is left in place.
+% -----------------------------------------------------------------------------
+\def\imt@leanlogo{lean_logo.png}
+
+% " (name)" when a name is given, nothing when it is empty.
+\newcommand{\imt@leanname}[1]{\ifblank{#1}{}{\ (#1)}}
+
+\newtcolorbox{leanbox}[2]{%
+  enhanced,
+  colback=IMTBackground,
+  colframe=IMTDarkBlue,
+  colbacktitle=IMTDarkBlue,
+  coltitle=white,
+  fonttitle=\bfseries,
+  boxrule=0.6pt,
+  arc=1.5pt,
+  left=2.5mm,right=2.5mm,top=1.8mm,bottom=1.8mm,
+  % righttitle keeps a long title from running under the badge; the vertical
+  % title padding keeps the badge inside the bar.
+  lefttitle=2.5mm,righttitle=20mm,toptitle=1.2mm,bottomtitle=1.2mm,
+  title={#1\imt@leanname{#2}},
+  overlay={%
+    \node[anchor=east,fill=white,rounded corners=0.8pt,
+          inner xsep=0.4mm,inner ysep=0.4mm,outer sep=0pt]
+      at ([xshift=-2.5mm]title.east)
+      {\includegraphics[width=15mm]{\imt@assetpath\imt@leanlogo}};%
+  },
+}
 
 \endinput
