@@ -27,9 +27,13 @@ configuration: the `.sty` sits in the project root where LaTeX already looks.
 ## Using the theme
 
 ```latex
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=169,11pt,t]{beamer}
 \usetheme{imtlucca}
 ```
+
+Beamer centers frame content vertically by default, which leaves a short slide floating in the middle with a dead band under the title.
+Using the option `t` top-aligns it so content starts just below the title rule.
+Frames that should be centered pass it per frame, as in `\begin{frame}[c]{Figure}`.
 
 Theme options:
 

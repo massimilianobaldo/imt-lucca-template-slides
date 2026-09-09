@@ -1,7 +1,11 @@
 % !TeX program = pdflatex
 % IMT School for Advanced Studies Lucca beamer template.
 % Build with `make` (see the Makefile) or with pdfLaTeX in TeXstudio.
-\documentclass[aspectratio=169,11pt]{beamer}
+% `t` top-aligns frame content. Without it beamer centres each frame vertically,
+% which leaves short slides floating in the middle with a dead band under the
+% title. Frames that genuinely want centring pass [c], as the figure and closing
+% frames below do.
+\documentclass[aspectratio=169,11pt,t]{beamer}
 
 % Theme options: sectionpages=true|false, footer=true|false, assetpath=<dir>.
 \usetheme{imtlucca}
@@ -101,7 +105,7 @@
   \end{leanbox}
 \end{frame}
 
-\begin{frame}{Figure placeholder}
+\begin{frame}[c]{Figure placeholder}
   \begin{center}
     \fbox{\parbox[c][42mm][c]{0.72\textwidth}{\centering Insert figure here}}
   \end{center}
@@ -120,7 +124,7 @@
   \vfill
 \end{frame}
 
-\begin{frame}{Thank you}
+\begin{frame}[c]{Thank you}
   \Large Questions?
 
   \vspace{6mm}
